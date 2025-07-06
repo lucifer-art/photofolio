@@ -1,7 +1,8 @@
 import styles from "./albumForm.module.css";
 import { useRef } from "react";
 import db from '../../firebase';
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export const AlbumForm = ({loading, onAlbumAdded}) => {
   const albumNameInput = useRef();
@@ -17,8 +18,9 @@ export const AlbumForm = ({loading, onAlbumAdded}) => {
     const name = albumNameInput.current.value.trim();
     if(!name) return;
     try {
-      await addDoc(collection(db, 'albums'), { name });
+      await addDoc(collection(db, 'albums'), { name, timestamp: serverTimestamp() });
       handleClear();
+      toast.success("Album added successfully");
       onAlbumAdded();
     } catch(err) {
       console.error("Error: ", err.message)

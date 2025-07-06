@@ -10,7 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 // import { toast } from "react-toastify";
 
 function App() {
-  console.log("REACT_APP_FIREBASE_API_KEY",process.env.REACT_APP_FIREBASE_API_KEY);
   return (
     <div className={styles.App}>
       <ToastContainer />
